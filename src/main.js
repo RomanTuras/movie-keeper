@@ -1,13 +1,14 @@
 document.addEventListener("DOMContentLoaded", () => {
   let movies = ["Home alone(1994)", "Ghost busters", "Battleship"];
-  // let movies = []
+  // let movies = ["hi"]
   const movieList = document.getElementById("movie-list");
   const addFilmBtn = document.getElementById("add-film");
   const deleteFilmBtn = document.getElementById("delete-film");
-  let movieListContent = `<li class="empty-list-item">Add a movie for your list</li>`;
+  let movieListContent = "";
 
   window.deleteFilm = (filmName) => {
     movies = movies.filter((movie) => movie != filmName);
+    console.log(movies);
     renderFilms(movies);
   };
 
@@ -15,12 +16,14 @@ document.addEventListener("DOMContentLoaded", () => {
     if (movies.length > 0) {
       movieListContent = movies
         .map(
-          (e) => ` <li class="list-item" data-film="${e}">
-        <span>${e}</span>
-        <button onclick="deleteFilm('${e}')" type="button">delete</button>
+          (movie) => ` <li class="list-item card" data-film="${movie}">
+        <span>${movie}</span>
+        <button onclick="deleteFilm('${movie}')" type="button">delete</button>
         </li>`
         )
         .join(" ");
+    } else {
+      movieListContent = `<li class="empty-list-item">Add a movie for your list</li>`;
     }
     movieList.innerHTML = movieListContent;
   };
@@ -34,5 +37,6 @@ document.addEventListener("DOMContentLoaded", () => {
   };
 
   addFilmBtn.addEventListener("click", addFilm);
+  console.log("loaded");
   renderFilms(movies);
 });
